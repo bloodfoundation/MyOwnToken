@@ -2,15 +2,15 @@ pragma solidity ^0.4.18;
 // ----------------------------------------------------------------------------
 // '이더리움 토큰 5분만에 만들기
 //  주의 256바이트 넘어갈수 없음! 
-// Deployed to : 자기자신의 주소
-// 심볼(Symbol)  : 자기심볼
-// 코인이름(Name) : 심볼기준의 코인이름
-// 총통화량(Total supply): 100000000   통화량만들기
+// Deployed to : 0x5Fe94E454eB5a3926a3050fdBE6d0f06090fA603
+// 심볼(Symbol)  : HWDC
+// 코인이름(Name) : Hello World token
+// 총통화량(Total supply): 10000000   통화량만들기
 // 총자릿수(소숫점이하,Decimals)    : 18
 //
 // 이더리움 코인을 쉽게 만들어 보자!  
-// 여기서 바꿀것은, 심볼 코인이름, 총통화량이지~ 이것만 바꾸면, 나만의 코인 완성~~ 
-// 참 쉽지~~
+// 여기서 바꿀것은, 심볼 코인이름, 총통화량dla~ 이것만 바꾸면, 나만의 코인 완성~~ 
+// 참 쉽죠잉~~
 // 참고로, 정수오버플로우 버그를 만들어 내는, BatchTransfer란 놈이 있는데
 // 누군가 잘 정리해놨다. 그래서 링크.. https://www.clien.net/service/board/cm_vcoin/12030713
 //  (c)제왕 알렉산더
@@ -105,7 +105,7 @@ newOwner = address(0);
 // 무거운 코드일수록, 수수료도 비싸다고^^
 // 주석이나 공백등은 컴파일하면서 사라지니까.. 주석은 길어도 상관없어~
 // ----------------------------------------------------------------------------
-contract E18Token is ERC20Interface, Owned, SafeMath
+contract HelloWorldToken  is ERC20Interface, Owned, SafeMath
  {
 string public symbol;
 string public name;
@@ -115,16 +115,15 @@ mapping(address => uint) balances;
 mapping(address => mapping(address => uint)) allowed;
 // ------------------------------------------------------------------------
 // Constructor 
-// 변경해줄 부분임
+// 변경해줄 부분임!!!!
 // ------------------------------------------------------------------------
-function E18Token() public {
-symbol = "EFUCK";
-name = "Ether 18 token";
+function HelloWorldToken() public {
+symbol = "HWDC";
+name = "Hello World Tokens";
 decimals = 18;
-_totalSupply = 100000000000000000000000000;
-balances[이더로부터 받은 고유키] = _totalSupply;
-Transfer(address(0),0x4c35F477F62231638322881373Fe114368e056DD
-, _totalSupply);
+_totalSupply = 10000000000000000000000000;
+balances[0x5Fe94E454eB5a3926a3050fdBE6d0f06090fA603] = _totalSupply;
+Transfer(address(0),0x5Fe94E454eB5a3926a3050fdBE6d0f06090fA603, _totalSupply);
 }
 // ------------------------------------------------------------------------
 // 총공급량의 잔량!! 
@@ -146,7 +145,7 @@ return balances[tokenOwner];
 function transfer(address to, uint tokens) public returns (bool success) {
 balances[msg.sender] = safeSub(balances[msg.sender], tokens);  //보내는사람으로부터 빼주고
 
-balances[to] = efuckAdd(balances[to], tokens); //받는사람에게 더해주고
+balances[to] = safeAdd(balances[to], tokens); //받는사람에게 더해주고
 Transfer(msg.sender, to, tokens);
 return true;
 }
